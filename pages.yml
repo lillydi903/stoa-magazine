@@ -1,0 +1,132 @@
+media:
+  images:
+    input: media
+    output: /stoa-magazine/media
+
+content:
+  - name: articles
+    label: Άρθρα STOA
+    type: file
+    path: articles.json
+    format: json
+    list: true
+    fields:
+      - name: slug
+        label: Σύντομος σύνδεσμος
+        type: string
+        required: true
+        description: Μικρά λατινικά γράμματα και παύλες, π.χ. athina-enoikia
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: Χρησιμοποίησε μόνο μικρά λατινικά γράμματα, αριθμούς και παύλες.
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: dek
+        label: Υπότιτλος
+        type: text
+        required: true
+      - name: category
+        label: Κατηγορία
+        type: select
+        required: true
+        options:
+          values:
+            - Πόλη
+            - Σχέσεις
+            - Φιλία
+            - Δουλειά
+            - Πολιτισμός
+            - Σινεμά
+            - Θέατρο
+            - Βιβλία & Ιδέες
+            - Style
+            - Design
+            - AI & Κοινωνία
+            - Wellbeing
+            - Internet Culture
+            - Γειτονιές
+            - Weekend
+      - name: author
+        label: Συντάκτης
+        type: string
+        required: true
+      - name: date
+        label: Ημερομηνία δημοσίευσης
+        type: date
+        required: true
+      - name: read
+        label: Χρόνος ανάγνωσης
+        type: string
+        required: true
+        description: π.χ. 8′
+      - name: image
+        label: Κεντρική φωτογραφία
+        type: image
+        required: true
+        options:
+          media: images
+          rename: true
+          extensions: [jpg, jpeg, png, webp]
+      - name: placement
+        label: Θέση στην αρχική
+        type: select
+        required: true
+        options:
+          values:
+            - name: auto
+              label: Αυτόματα βάσει κατηγορίας
+            - name: none
+              label: Μόνο στη σελίδα κατηγορίας
+            - name: cover
+              label: Κεντρικό cover story
+            - name: side-1
+              label: Δεξιά από το cover — επάνω
+            - name: side-2
+              label: Δεξιά από το cover — κάτω
+            - name: life-1
+              label: ΖΩΗ — θέση 1
+            - name: life-2
+              label: ΖΩΗ — θέση 2
+            - name: life-3
+              label: ΖΩΗ — θέση 3
+            - name: life-4
+              label: ΖΩΗ — θέση 4
+            - name: culture-cover
+              label: CULTURE — κεντρικό
+            - name: culture-1
+              label: CULTURE — μικρό 1
+            - name: culture-2
+              label: CULTURE — μικρό 2
+            - name: culture-3
+              label: CULTURE — μικρό 3
+            - name: edit-1
+              label: THE EDIT — θέση 1
+            - name: edit-2
+              label: THE EDIT — θέση 2
+            - name: neighborhood
+              label: Γειτονιά του μήνα
+      - name: published
+        label: Δημοσιευμένο
+        type: boolean
+        required: true
+      - name: body
+        label: Κείμενο άρθρου
+        type: rich-text
+        required: true
+        options:
+          format: html
+          media: images
+          rename: true
+          switcher: true
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "STOA CMS: δημιουργία {filename}"
+      update: "STOA CMS: ενημέρωση {filename}"
+      delete: "STOA CMS: διαγραφή {filename}"
